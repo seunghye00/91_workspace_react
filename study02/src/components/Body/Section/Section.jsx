@@ -1,9 +1,9 @@
+import styles from './Section.module.css';
 
 const Section = () => {
     return (
-      <div className="section">
-  
-      </div>
+      // <div className={styles.section + " " + styles.bgred}></div>
+      <div className={`${styles.section} ${styles.bgred}`}></div>
     );
 }
 
