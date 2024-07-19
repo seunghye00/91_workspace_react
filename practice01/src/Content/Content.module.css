@@ -1,0 +1,26 @@
+.cont {
+    height: 100%;
+}
+
+.subMenu {
+    height: 15%;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.menu {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0px;
+}
+
+.menu:hover {
+    background-color: rgb(255, 207, 255);
+    cursor: pointer;
+}
+
+.contents {
+    height: 70%;
+}

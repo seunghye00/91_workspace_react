@@ -1,0 +1,68 @@
+.container {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.listBox table {
+    width: 100%;
+    text-align: center;
+    height: 100%;
+
+}
+
+.listBox table tr,
+th,
+td {
+    border: 1px solid black;
+}
+
+.listBox table tr {
+    height: 40px;
+}
+
+.addBox,
+.updateBox {
+    width: 70%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 235, 205, 0.209);
+}
+
+.delBox {
+    height: 45%;
+    width: 70%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 235, 205, 0.209);
+}
+
+.inputBox {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0px;
+}
+
+input {
+    width: 50%;
+    height: 60%;
+    margin-top: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+button {
+    width: 30%;
+    height: 65%;
+    border-radius: 10px;
+    background-color: rgb(255, 224, 177);
+}
+
+button:hover {
+    background-color: rgb(255, 211, 146);
+    cursor: pointer;
+}
