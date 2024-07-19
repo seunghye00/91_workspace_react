@@ -1,0 +1,22 @@
+.input{
+    display: flex;
+    flex-direction: column;
+}
+.input>div{
+    flex: 1;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.title {
+    color: rgb(67, 68, 83);
+}
+.inputBox input {
+    width: 80%;
+    height: 85%;
+    text-align: center;
+    font-size: large;
+}
+.btnBox button{
+    padding: 10px 30px;
+}

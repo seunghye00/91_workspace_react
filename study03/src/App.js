@@ -189,7 +189,17 @@ function App() {
 
     // const addData = { seq: data.seq, writer: data.writer, message: data.message };
     
-    setDatas(prev => [...prev, data]);
+    setDatas(prev => {
+      const updated = [...prev, data];
+      setSearchDatas(updated);
+      return updated;
+    }); 
+    // state에 대한 setter는 비동기로 실행되므로, 즉각적인 피드백을 받지 못하는 경우가 생길 수 있다.
+    // setter 함수의 비동기처리에 대응하는 방법 2가지 (두 방법 모두 숙지 및 사용가능 해야 함 !!!)
+    // 1. useEffect : 특정 데이터의 변화를 감지 (추후 배울 방법)
+    // 2. 함수베이스 setter에서 return 전에 갱신 로직을 동작시킨다.
+    //    -->> 함수를 기반으로 setter를 동작시킬 때 함수 내부에서 다른 코드를 같이 실행시키는 방법
+
     setData({seq: 0, writer: '', message: ''});
   }
 
@@ -200,7 +210,11 @@ function App() {
 
   const handleDelete = () => {
     // delSeq가 삭제 된 목록 세팅
-    setDatas(prevDatas => prevDatas.filter(data => data.seq !== delSeq));
+    setDatas(prevDatas => {
+      const result = prevDatas.filter(data => data.seq !== delSeq);
+      setSearchDatas(result);
+      return result;
+    });
     setDelSeq(0);
   }
 
@@ -232,25 +246,26 @@ function App() {
     //   return ([...result, modiData]);
     // });
 
-    setDatas(prev => prev.map(data => {
-        if(data.seq === parseInt(modiData.seq)){
+    setDatas(prev => {
+      const result = prev.map(data => {
+        if(data.seq === parseInt(modiData.seq)){      
           return modiData;
         }
         return data;
-    }));
+      });
+      setSearchDatas(result);
+      return result;
+    });
     setModiData({seq: 0, writer: '', message: ''});
   }
 
-  
-  const[searchDatas, setSearchDatas] = useState({});
+  const[searchDatas, setSearchDatas] = useState(datas);
 
-  const handleSearch = (e) => {
-    if(e.target.value !== ''){
-      console.log("실행");
-      setSearchDatas(prevDatas => prevDatas.filter(data => data.message.includes(e.target.value)));
-    }
-
-
+  const handleSearch = (e) => {   
+    const keyword = e.target.value;
+    const result = datas.filter(data => data.message.includes(keyword));    
+    
+    setSearchDatas(result);
   }
 
   return (
@@ -265,7 +280,7 @@ function App() {
         </thead>
         <tbody>
           {
-            datas.map((d)=>{
+            searchDatas.map((d)=>{
               return (
                 <tr key={d.seq}>
                   <td>{d.seq}</td>

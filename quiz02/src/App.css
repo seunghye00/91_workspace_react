@@ -1,0 +1,44 @@
+* {
+  box-sizing: border-box;
+}
+
+div {
+  border: 1px solid black;
+}
+
+.container {
+  width: 800px;
+  height: 400px;
+  margin: auto;
+  display: flex;
+}
+
+.list {
+  flex: 1;
+}
+
+.menuBox{
+  flex: 1;
+}
+
+.choiceMenu {
+  display: flex;
+  height: 20%;
+}
+
+.menu {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+}
+
+.menu:hover {
+  background-color: lightpink;
+  cursor: pointer;
+}
+
+.viewMenu {
+  height: 80%;
+}

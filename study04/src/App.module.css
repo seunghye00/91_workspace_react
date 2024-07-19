@@ -1,0 +1,23 @@
+.container {
+    width: 900px;
+    margin: auto;
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.box {
+    flex: 1;
+    padding: 5px;
+    max-width: 300px;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 10px;
+    background-color: rgb(202, 205, 230);
+}
+
+.box>div {
+    height: 100%;
+    font-size: xx-large;
+}
