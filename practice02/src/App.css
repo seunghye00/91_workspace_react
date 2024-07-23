@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+}
+
+div {
+  border: 1px solid black;
+}
+
+.container {
+  width: 600px;
+  height: 400px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.body {
+  flex: 8;
+  display: flex;
+}
