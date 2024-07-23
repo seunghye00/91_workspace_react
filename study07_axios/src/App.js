@@ -15,6 +15,17 @@ function App() {
 
     const [musics, setMusics] = useState([])
 
+    const [modifyMusic, setModifyMusic] = useState({
+        id: 0,
+        title: '',
+        singer: '',
+        publish: '',
+    })
+
+    const [delID, setDelID] = useState(0)
+
+    const [searchTitle, setSearchTitle] = useState('')
+
     const handleAddChange = e => {
         let { name, value } = e.target
         setMusic(prev => ({ ...prev, [name]: value }))
@@ -26,19 +37,65 @@ function App() {
         // R - get
         // U - put
         // D - delete
-        axios.post('http://192.168.1.12/music', music)
-        setMusic({
-            id: 0,
-            title: '',
-            singer: '',
-            publish: '',
+        axios.post('http://192.168.1.12/music', music).then(resp => {
+            setMusic({
+                id: 0,
+                title: '',
+                singer: '',
+                publish: '',
+            })
+            handleGetAll()
         })
     }
 
     const handleGetAll = () => {
         axios.get('http://192.168.1.12/music').then(resp => {
-            console.log(resp)
+            setMusics(resp.data)
         })
+    }
+
+    const handleModifyChange = e => {
+        let { name, value } = e.target
+        setModifyMusic(prev => ({ ...prev, [name]: value }))
+    }
+
+    const handleModify = () => {
+        axios
+            .put(`http://192.168.1.12/music/${modifyMusic.id}`, modifyMusic)
+            .then(resp => {
+                setModifyMusic({
+                    id: 0,
+                    title: '',
+                    singer: '',
+                    publish: '',
+                })
+                handleGetAll()
+            })
+    }
+
+    const handelDelIDChange = e => {
+        setDelID(e.target.value)
+    }
+
+    const handleDelete = () => {
+        axios.delete(`http://192.168.1.12/music/${delID}`).then(resp => {
+            setDelID(0)
+            handleGetAll()
+        })
+    }
+
+    const handleTitleChange = e => {
+        setSearchTitle(e.target.value)
+    }
+
+    const handleSearch = () => {
+        axios
+            .get(`http://192.168.1.12/music`, {
+                params: { title: searchTitle },
+            })
+            .then(resp => {
+                console.log(resp.data)
+            })
     }
 
     return (
@@ -100,6 +157,61 @@ function App() {
                 </table>
             </div>
             <button onClick={handleGetAll}>getAllMusic</button>
+            <hr />
+            <div>
+                <input
+                    type="text"
+                    placeholder="ID"
+                    name="id"
+                    onChange={handleModifyChange}
+                    value={modifyMusic.id || ''}
+                ></input>
+                <br />
+                <input
+                    type="text"
+                    placeholder="Title"
+                    name="title"
+                    onChange={handleModifyChange}
+                    value={modifyMusic.title}
+                ></input>
+                <br />
+                <input
+                    type="text"
+                    placeholder="Singer"
+                    name="singer"
+                    onChange={handleModifyChange}
+                    value={modifyMusic.singer}
+                ></input>
+                <br />
+                <input
+                    type="date"
+                    placeholder="Publish"
+                    name="publish"
+                    onChange={handleModifyChange}
+                    value={modifyMusic.publish}
+                ></input>
+                <br />
+                <button onClick={handleModify}>수정</button>
+                <hr />
+                <input
+                    type="text"
+                    placeholder="ID"
+                    name="id"
+                    onChange={handelDelIDChange}
+                    value={delID || ''}
+                />
+                <br />
+                <button onClick={handleDelete}>삭제</button>
+                <hr />
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="Title"
+                    onChange={handleTitleChange}
+                    value={searchTitle}
+                />
+                <button onClick={handleSearch}>검색</button>
+            </div>
         </div>
     )
 }

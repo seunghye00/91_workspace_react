@@ -1,0 +1,16 @@
+table,
+tr,
+th,
+td {
+    border: 1px solid black;
+}
+
+input {
+    padding: 5px 10px;
+}
+
+.btns {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 5px 0;
+}
