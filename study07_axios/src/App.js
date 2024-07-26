@@ -26,6 +26,9 @@ function App() {
 
     const [searchTitle, setSearchTitle] = useState('')
 
+    const [text, setText] = useState('')
+    const [files, setFiles] = useState([])
+
     const handleAddChange = e => {
         let { name, value } = e.target
         setMusic(prev => ({ ...prev, [name]: value }))
@@ -98,6 +101,32 @@ function App() {
             })
     }
 
+    const handleTextChange = e => {
+        setText(e.target.value)
+    }
+
+    const handleFilesChange = e => {
+        setFiles([...e.target.files])
+    }
+
+    const handleSubmit = () => {
+        const formData = new FormData() // query parameter 형식으로 전송됨.
+        formData.append('text', text)
+        files.forEach(file => {
+            formData.append('files', file)
+        })
+        axios.post(`http://192.168.1.12/files`, formData) // formData를 전송하는 순간 자동으로 multipart/form-data로 변환 됨
+    }
+
+    // 날짜
+    const [publish, setPublish] = useState('')
+    const handleDate = e => {
+        console.log(e.target.value)
+        setPublish(e.target.value)
+    }
+    const handleDateSubmit = () => {
+        axios.post(`http://192.168.1.12/files`, { publish: publish })
+    }
     return (
         <div className="App">
             <input
@@ -211,6 +240,15 @@ function App() {
                     value={searchTitle}
                 />
                 <button onClick={handleSearch}>검색</button>
+            </div>
+            <div>
+                <input type="text" onChange={handleTextChange} />
+                <input type="file" onChange={handleFilesChange} multiple />
+                <button onClick={handleSubmit}>전송</button>
+            </div>
+            <div>
+                <input type="date" name="" onChange={handleDate} />
+                <button onClick={handleDateSubmit}>전송</button>
             </div>
         </div>
     )

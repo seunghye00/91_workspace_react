@@ -33,10 +33,59 @@ const Index = () => {
             })
     }
 
+    const handleLogout = () => {
+        // 로그아웃 시 인증 정보를 삭제
+        axios.delete(`http://192.168.1.12/auth`).then(() => {
+            sessionStorage.removeItem('loginID')
+            setLoginID('')
+            setAuth({ id: '', password: '' })
+        })
+    }
+
+    const handleRemoveUser = () => {
+        if (!window.confirm('정말 탈퇴하시겠습니까 ?')) {
+            return
+        }
+        axios.delete(`http://192.168.1.12/member`).then(() => {
+            handleLogout()
+        })
+    }
+
+    const handleToChat = () => {}
+
     return (
         <>
             {loginID ? (
-                <h1>{loginID}님 환영합니다.</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th colSpan={4}>
+                                <h1>{loginID}님 환영합니다.</h1>
+                                <img src="http://192.168.1.12/images/test.png"></img>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <button onClick={handleToChat}>채팅</button>
+                            </td>
+                            <td>
+                                <button onClick={() => navi('/member/mypage')}>
+                                    마이페이지
+                                </button>
+                            </td>
+                            <td>
+                                <button onClick={handleLogout}>로그아웃</button>
+                            </td>
+                            <td>
+                                <button onClick={handleRemoveUser}>
+                                    회원탈퇴
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             ) : (
                 <table>
                     <thead>
