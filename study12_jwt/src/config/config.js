@@ -1,10 +1,11 @@
 import axios from 'axios'
 import useAuthStore from '../store/store'
 
-export const host = '192.168.1.12'
+// export const host = '192.168.1.12'
+export const host = 'app-144987076456.asia-northeast3.run.app'
 
 export const api = axios.create({
-    baseURL: `http://${host}`,
+    baseURL: `https://${host}`,
 })
 api.interceptors.request.use(config => {
     const token = sessionStorage.getItem('token')
